@@ -11,7 +11,7 @@
                 :icon="['fas', 'circle-notch']"
                 pulse
             />
-            Disabled and animated for 2 seconds if clicked
+            Disabled and animated for {{ clickCount }} seconds if clicked
             <slot />
         </base-button>
     </div>
@@ -34,22 +34,27 @@
   
     data () {
       return {
-        isPending: false
+        isPending: false,
+        clickCount: 0,
       }
     },
   
     methods: {
         async handleAsyncClick() {
-        // Simulate an asynchronous action that takes 2 seconds
+        
+        this.clickCount++;
+
+        const delay = this.clickCount * 1000
         await new Promise(resolve => {
             setTimeout(() => {
             resolve();
-            }, 2000); // 2 seconds
+            }, delay); // 2 seconds
         });
 
         console.log('Button clicked after 2 seconds');
         this.isPending = true
         },
+       
     }
   }
   </script>
