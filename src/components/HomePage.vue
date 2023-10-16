@@ -3,6 +3,8 @@
          <p>Here comes the content of the HomePage</p>
          <BaseButton>BaseButton with custom margin</BaseButton>
          <BaseButton :is-disabled="true">BaseButton Disabled</BaseButton>
+         <BaseButton class="un">BaseButton with color props</BaseButton>
+         <BaseButton class="deux">BaseButton with color props</BaseButton>
     </div>
 </template>
 
@@ -21,7 +23,13 @@ export default {
     padding: 300px;
     
 }
+.un{
+    background-color: rgb(231, 23, 23);
+}
 
+.deux{
+    background-color: rgb(153, 48, 48);
+}
 p{
     margin-bottom:0;
 }

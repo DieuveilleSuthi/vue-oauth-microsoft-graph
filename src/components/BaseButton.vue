@@ -1,7 +1,7 @@
 <template>
     <button
       class="base-button"
-      :class="{ 'hovered': isHovered, 'focused': isFocused, 'disabled': isDisabled }"
+      :class="{ 'hovered': isHovered, 'focused': isFocused, 'disabled': isDisabled}"
       @mouseenter="isHovered = true"
       @mouseleave="isHovered = false"
       @focus="isFocused = true"
@@ -25,8 +25,15 @@
         type: Boolean,
         default: false,
       },
+      color: {
+      type: String,
+      default: 'primary',
+      validator(value) {
+        return ['primary', 'warn', 'danger'].includes(value);
+      },
     },
-  };
+  },
+};
   </script>
   
   <style scoped>
@@ -54,5 +61,17 @@
     background-color: #79dd9e; /* Disabled state background color */
     cursor: not-allowed;
   }
-  </style>
-  
+
+  /* Dynamic color styles */
+.base-button.primary {
+  background-color: #007bff; /* Primary color */
+}
+
+.base-button.warn {
+  background-color: #ffc107; /* Warning color */
+}
+
+.base-button.danger {
+  background-color: #dc3545; /* Danger color */
+}
+</style>
