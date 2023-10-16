@@ -1,36 +1,63 @@
 <template>
     <div class="corps">
-         <p>Here comes the content of the HomePage</p>
-         <BaseButton>BaseButton with custom margin</BaseButton>
-         <BaseButton :is-disabled="true">BaseButton Disabled</BaseButton>
-         <BaseButton class="un">BaseButton with color props</BaseButton>
-         <BaseButton class="deux">BaseButton with color props</BaseButton>
+        <p>Here content of the HomePage</p>
+        <base-button
+            :isDisabled="isPending"
+            :color="color"
+            @click.stop.prevent ="handleAsyncClick"
+            >
+            <font-awesome-icon
+                v-if="isPending"
+                :icon="['fas', 'circle-notch']"
+                pulse
+            />
+            Disabled and animated for 2 seconds if clicked
+            <slot />
+        </base-button>
     </div>
-</template>
+  </template>
+  
+  <script>
+  import BaseButton from './BaseButton.vue';
+  
+  export default {
+    name: 'AsyncButton',
+    components: { BaseButton },
+    inheritAttrs: false,
+  
+    props: {
+      color: {
+        type: String,
+        default: 'primary'
+      }
+    },
+  
+    data () {
+      return {
+        isPending: false
+      }
+    },
+  
+    methods: {
+        async handleAsyncClick() {
+        // Simulate an asynchronous action that takes 2 seconds
+        await new Promise(resolve => {
+            setTimeout(() => {
+            resolve();
+            }, 2000); // 2 seconds
+        });
 
-<script>
-import BaseButton from './BaseButton.vue';
-
-export default {
-  components: {
-    BaseButton,
-  },
-};
-</script>
-
+        console.log('Button clicked after 2 seconds');
+        this.isPending = true
+        },
+    }
+  }
+  </script>
 <style scoped>
 .corps{
     padding: 300px;
-    
-}
-.un{
-    background-color: rgb(231, 23, 23);
-}
-
-.deux{
-    background-color: rgb(153, 48, 48);
 }
 p{
-    margin-bottom:0;
+    margin-bottom: 0;
 }
 </style>
