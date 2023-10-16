@@ -1,14 +1,22 @@
 <template>
-  <HomePage/>
+  <div>
+    <base-header />
+    <HomePage />
+    <base-footer />
+  </div>
 </template>
 
 <script>
 import HomePage from './components/HomePage.vue';
+import baseFooter from './components/base-footer.vue';
+import baseHeader from './components/base-header.vue';
 
 export default {
   name: 'App',
   components: {
-    HomePage
+    baseHeader,
+    HomePage,
+    baseFooter
 }
 }
 </script>
@@ -20,6 +28,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 0;
+  
 }
 </style>
