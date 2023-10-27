@@ -1,24 +1,37 @@
-// file src/lib/microsoftGraph.js
-import * as msal from '@azure/msal-browser'
-
-/**
- * List the requested scopes (aka. the requested permissions)
- */
-const requestedScopes = {
-  scopes: ["User.Read"]
-}
-
-const msalInstance = new msal.PublicClientApplication({
-  auth: {
-    clientId: process.env.VUE_APP_OAUTH_CLIENT_ID
+<template>
+    <div>
+      <button @click="signIn">Sign In</button>
+        <div v-if="user">
+            <p>Welcome {{ user.name }} !</p>
+  
+        </div>
+      
+    </div>
+  </template>
+  
+  <script>
+  import { signInAndGetUser } from '../lib/microsoftGraph';
+  
+  export default {
+ 
+    computed: {
+    user() {
+      return this.$store.state.user;
+    }
   },
-  cache: {
-    cacheLocation: "sessionStorage"
-  }
-})
-
-export async function signInAndGetUser () {
-  const authResult = await msalInstance.loginPopup(requestedScopes)
-  msalInstance.setActiveAccount(authResult.account)
-  return authResult.account
-}
+    methods: {
+      async signIn() {
+        try {
+          const user = await signInAndGetUser();
+          this.$store.commit('setUser', user);
+        } catch (error) {
+          console.error('Sign-in error:', error);
+        }
+      },
+    },
+  };
+  
+  </script>
+  <style scoped>
+  /* Add any styles here */
+  </style>
