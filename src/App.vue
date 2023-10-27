@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import HomePage from './components/HomePage.vue';
+import HomePage from './pages/HomePage.vue';
 //import baseFooter from './components/base-footer.vue';
 //import baseHeader from './components/base-header.vue';
 import BaseLayout from './components/base-layout.vue';
@@ -21,7 +21,12 @@ export default {
     HomePage,
     //baseFooter,
     BaseLayout
-}
+},
+computed: {
+    user() {
+      return this.$store.state.user;
+    },
+  },
 }
 </script>
 
